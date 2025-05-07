@@ -4,7 +4,7 @@ pipeline {
     agent any
     // Déclarer les variables d'environnement globales
     environment {
-        DOCKER_USERNAME     = "ditdevops1"                        // votre username Docker Hub
+        DOCKER_USERNAME     = "papesaliouwade"                        // votre username Docker Hub
         IMAGE_VERSION       = "1.${BUILD_NUMBER}"                // version dynamique de l’image
         DOCKER_IMAGE        = "${DOCKER_USERNAME}/tp-app:${IMAGE_VERSION}" // nom de l’image docker
         DOCKER_CONTAINER    = "ci-cd-html-css-app-${BUILD_NUMBER}"               // nom du conteneur
@@ -36,7 +36,7 @@ pipeline {
         stage("Push image to Docker Hub") {
             steps {
                 script {
-                    bat """
+                    sh """
                     docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}
                     echo 'Docker login successful'
                     docker push $DOCKER_IMAGE
@@ -48,7 +48,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 script {
-                    bat """
+                    sh """
                     docker run -d --name $DOCKER_CONTAINER -p 8080:80 $DOCKER_IMAGE
                     """
                 }
