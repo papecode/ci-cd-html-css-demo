@@ -1,7 +1,7 @@
 // Déclaration du pipeline Jenkins
 pipeline {
     // Exécute le pipeline sur n'importe quel agent
-    agent any
+    agent none
     // Déclarer les variables d'environnement globales
     environment {
         DOCKER_USERNAME     = "papesaliouwade"                        // votre username Docker Hub
@@ -14,6 +14,7 @@ pipeline {
     stages {
         // Étape 1 : Récupération du code source depuis GitHub
         stage("Checkout") {
+            agent any
             steps {
                 git branch: 'master', url: 'https://github.com/papecode/ci-cd-html-css-demo.git'
             }
