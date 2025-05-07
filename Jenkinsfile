@@ -28,7 +28,7 @@ pipeline {
         stage("Build Docker Image") {
             steps {
                 script {
-                    sh "docker build -t $DOCKER_IMAGE ."
+                    bat "docker build -t $DOCKER_IMAGE ."
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage("Push image to Docker Hub") {
             steps {
                 script {
-                    sh """
+                    bat """
                     docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}
                     echo 'Docker login successful'
                     docker push $DOCKER_IMAGE
@@ -48,7 +48,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 script {
-                    sh """
+                    bat """
                     docker run -d --name $DOCKER_CONTAINER -p 8080:80 $DOCKER_IMAGE
                     """
                 }
