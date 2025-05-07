@@ -1,8 +1,7 @@
 // Déclaration du pipeline Jenkins
 pipeline {
     // Exécute le pipeline sur n'importe quel agent
-    
-    agent bat
+    agent any
     // Déclarer les variables d'environnement globales
     environment {
         DOCKER_USERNAME     = "papesaliouwade"                        // votre username Docker Hub
